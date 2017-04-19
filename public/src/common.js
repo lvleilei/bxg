@@ -1,5 +1,9 @@
 
-define(['jquery', 'template','cookie'], function ($,template) {
+define(['jquery', 'template','nprogress','cookie'], function ($,template,NProgress) {
+
+    NProgress.start();
+    NProgress.done();
+
     // 检测用户是否登录，如果没有登录则跳转至登录页
 
     // 如何检测用户是否登录了呢？
@@ -32,6 +36,8 @@ define(['jquery', 'template','cookie'], function ($,template) {
     var loginfo = $.cookie('loginfo') && JSON.parse($.cookie('loginfo'));
 
     console.log(loginfo);
+
+
     //将存在cookie中的用户头像和名称显示在页面中
     //1--
     // $('.profile img').attr('src',loginfo.tc_avatar);
@@ -61,7 +67,7 @@ define(['jquery', 'template','cookie'], function ($,template) {
         //传递数据
         html = render(loginfo);
     // console.log(html);
-    $('.profile').append(html);
+    $('.aside .profile').append(html);
 
 
     // 退出登录
@@ -80,4 +86,9 @@ define(['jquery', 'template','cookie'], function ($,template) {
         })
     });
 
+    //导航栏交互
+    $('.navs ul').prev('a').on('click',function(){
+        // alert(1);
+        $(this).next().slideToggle();
+    })
 })

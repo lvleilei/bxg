@@ -4,7 +4,8 @@ requirejs.config({
     paths: {
         jquery: 'assets/jquery/jquery.min',
         cookie: 'assets/jquery-cookie/jquery.cookie',
-        template: 'assets/artTemplate/template-web'
+        template: 'assets/artTemplate/template-web',
+        nprogress:'assets/nprogress/nprogress'
     },
     shim: {
 
