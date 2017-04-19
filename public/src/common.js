@@ -1,5 +1,5 @@
 
-define(['jquery', 'cookie'], function ($) {
+define(['jquery', 'template','cookie'], function ($,template) {
     // 检测用户是否登录，如果没有登录则跳转至登录页
 
     // 如何检测用户是否登录了呢？
@@ -32,6 +32,37 @@ define(['jquery', 'cookie'], function ($) {
     var loginfo = $.cookie('loginfo') && JSON.parse($.cookie('loginfo'));
 
     console.log(loginfo);
+    //将存在cookie中的用户头像和名称显示在页面中
+    //1--
+    // $('.profile img').attr('src',loginfo.tc_avatar);
+    // $('.profile h4').text(loginfo.tc_name);//这样两次查询DOM，用模板写，节约性能
+
+    //拓展web 、H5 、FE--front end--前端  BE--back end--后端 UI PM--产品 
+
+    //2--模板引擎渲染
+    // template方法传递两个参数
+    //第一个参数是模板所在DOM标签（script）的ID
+    //第二个参数是模板所需要的数据（对象类型）
+    //template('tpl',data)
+
+    //compile方法也需要两个参数
+    //第一个参数是字符串形式的模板
+    //第二个参数是配置选项可以省略
+    // var tpl = '<h1><%= name %></h1>';
+    // var data = {name:'小明'};
+
+    //定义模板
+    var sourse ='<div class="avatar img-circle">\
+                    <img src="<%= tc_avatar %>">\
+                </div>\
+                <h4><%= tc_name %></h4>',
+        //编译模板
+        render = template.compile(sourse),
+        //传递数据
+        html = render(loginfo);
+    // console.log(html);
+    $('.profile').append(html);
+
 
     // 退出登录
     $('#logout').on('click', function () {
