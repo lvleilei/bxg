@@ -4,6 +4,17 @@ define(['jquery', 'template','nprogress','cookie'], function ($,template,NProgre
     NProgress.start();
     NProgress.done();
 
+    //设置ajax loading ---加载页面
+    $(document).ajaxStart(function () {
+        $('.overlay').show();
+    })
+    $(document).ajaxStop(function () {
+        setTimeout(function () {
+            $('.overlay').hide();
+        },300);
+
+    })
+
     // 检测用户是否登录，如果没有登录则跳转至登录页
 
     // 如何检测用户是否登录了呢？
@@ -35,7 +46,7 @@ define(['jquery', 'template','nprogress','cookie'], function ($,template,NProgre
     // 获取用户的登录信息(被记录在了cookie中)
     var loginfo = $.cookie('loginfo') && JSON.parse($.cookie('loginfo'));
 
-    console.log(loginfo);
+    // console.log(loginfo);
 
 
     //将存在cookie中的用户头像和名称显示在页面中
@@ -65,7 +76,7 @@ define(['jquery', 'template','nprogress','cookie'], function ($,template,NProgre
         //编译模板
         render = template.compile(sourse),
         //传递数据
-        html = render(loginfo);
+        html = render(loginfo || {});
     // console.log(html);
     $('.aside .profile').append(html);
 
